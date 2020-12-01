@@ -241,8 +241,8 @@ def write_output(df: DataFrame, target_path: str):
 if __name__ == "__main__":
     """Main entrypoint"""
     spark = get_spark_session()
-    centerline_date_path = "/data/share/bdm/nyc_cscl.csv"  # TODO: Provide correct hdfs path for centerline
-    parking_violation_data_path = "/data/share/bdm/nyc_parking_violation"  # TODO: Provide correct hdfs path for parking violation
+    centerline_date_path = "hdfs:///data/share/bdm/nyc_311.csv"  # TODO: Provide correct hdfs path for centerline
+    parking_violation_data_path = "hdfs:///data/share/bdm/nyc_parking_violation"  # TODO: Provide correct hdfs path for parking violation
     """read output path from commandline"""
     output_path = sys.argv[1]
     df_park_violation = read_parking_violation_data(spark, parking_violation_data_path)
@@ -252,4 +252,5 @@ if __name__ == "__main__":
     df = join_park_violation_with_centerline(df_park_violation, centerline)
     df = aggregate_dataset_by_year(df)
     write_output(df, output_path)
+    #hdfs:///user/pjohnso002/output for outputfolder
     
